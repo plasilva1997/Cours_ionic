@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button routerLink="/">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Liste des restaurants</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="content" *ngIf="loaded; else loading">
+        <div *ngIf="places; else error">
+            <p *ngIf="places.length > 0; else emptyList">
+                Il y a {{ places.length }} restaurants disponibles
+            </p>
+            <ng-template #emptyList>
+                Aucun restaurant disponible pour le moment
+            </ng-template>
+        
+            <ion-card *ngFor="let place of places" [routerLink]="'/show/' + place.id">
+                <img [src]="place.image" [alt]="place.name">
+                <ion-card-header>
+                    <ion-card-title>
+                        <span [innerHtml]="place.category|categoryIcon:false"></span>
+                        {{ place.name }}
+                    </ion-card-title>
+                </ion-card-header>
+        
+                <ion-card-content>
+                    {{ place.location.address }}
+                </ion-card-content>
+            </ion-card>
+        </div>
+
+        <ng-template #error>
+            <app-error (retry)="load()"
+                message="La liste n'a pas pu être chargée, veuillez réessayer plus tard">
+            </app-error>
+        </ng-template>
+    </div>
+    <ng-template #loading>
+        <app-loader></app-loader>
+    </ng-template>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button routerLink="/add" color="tertiary">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Ajouter</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="placeForm" (ngSubmit)="save()" *ngIf="!loader; else loading">
+        <ion-item>
+            <ion-label position="floating">Nom</ion-label>
+            <ion-input formControlName="name"></ion-input>
+        </ion-item>
+        <div class="form-error" *ngIf="getForm().name.invalid && (getForm().name.dirty || submited)">
+            Vous devez saisir un nom d'au moins 3 caractères
+        </div>
+
+        <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea formControlName="description"></ion-textarea>
+        </ion-item>
+        <div class="form-error" *ngIf="getForm().description.invalid && (getForm().description.dirty || submited)">
+            Vous devez saisir une description d'au moins 20 caractères
+        </div>
+
+        <ion-item>
+            <ion-label position="floating">Adresse</ion-label>
+            <ion-input formControlName="address"></ion-input>
+        </ion-item>
+        <div class="form-error" *ngIf="getForm().address.invalid && (getForm().address.dirty || submited)">
+            Vous devez saisir une adresse
+        </div>
+
+        <ion-item>
+            <ion-label position="floating">Image</ion-label>
+            <ion-input formControlName="image"></ion-input>
+        </ion-item>
+        <div class="form-error" *ngIf="getForm().image.invalid && (getForm().image.dirty || submited)">
+            Vous devez saisir une URL d'image valide
+        </div>
+
+        <ion-item>
+            <ion-label>Note</ion-label>
+            <ion-range min="1" max="5" pin="true" snaps="true" color="secondary" formControlName="note">
+                <ion-label slot="start">1</ion-label>
+                <ion-label slot="end">5</ion-label>
+            </ion-range>
+        </ion-item>
+        <div class="form-error" *ngIf="getForm().note.invalid && (getForm().note.dirty || submited)">
+            Vous devez choisir une note entre 1 et 5
+        </div>
+
+        <ion-item>
+            <ion-label>Categorie</ion-label>
+            <ion-select formControlName="category" [value]="categories[0]" interface="popover">
+                <ion-select-option 
+                    *ngFor="let category of categories" [value]="category">
+                    {{ category }}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+        <div class="form-error" *ngIf="getForm().category.invalid && (getForm().category.dirty || submited)">
+            Vous devez choisir une categorie
+        </div>
+
+        <ion-button type="submit" expand="full">Enregistrer</ion-button>
+    </form>
+
+    <ng-template #loading>
+        <app-loader></app-loader>
+    </ng-template>
+</ion-content>

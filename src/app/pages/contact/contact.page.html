@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Contact</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="contactForm" (submit)="send()">
+        <ion-item>
+            <ion-input placeholder="Nom" formControlName="name"></ion-input>
+        </ion-item>
+        <div *ngIf="contactForm.controls.name.invalid && contactForm.controls.name.dirty">
+            Vous devez saisir un nom d'au moins 3 cractères
+        </div>
+        <ion-item>
+            <ion-input placeholder="E-mail" formControlName="email"></ion-input>
+        </ion-item>
+        <div *ngIf="contactForm.controls.email.invalid && contactForm.controls.email.dirty">
+            Vous devez saisir un email valide
+        </div>
+        <ion-item>
+            <ion-input placeholder="Sujet" formControlName="subject"></ion-input>
+        </ion-item>
+        <div *ngIf="contactForm.controls.subject.invalid && contactForm.controls.subject.dirty">
+            Vous devez saisir un sujet d'au moins 3 caractères
+        </div>
+        <ion-item>
+            <ion-textarea placeholder="Message" formControlName="content"></ion-textarea>
+        </ion-item>
+        <div *ngIf="contactForm.controls.content.invalid && contactForm.controls.content.dirty">
+            Vous devez saisir un message d'au moins 20 caractères
+        </div>
+
+        <ion-button type="submit">Envoyer</ion-button>
+    </form>
+</ion-content>

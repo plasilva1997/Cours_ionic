@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button routerLink="/list">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="place">{{ place.name }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="content" *ngIf="loaded; else loading">
+        <div *ngIf="place; else error">
+            <ion-card>
+                <img [src]="place.image" [alt]="place.name">
+                <ion-card-header>
+                    <ion-card-subtitle [innerHtml]="place.category|categoryIcon"></ion-card-subtitle>
+                    <ion-card-title>{{ place.location.address }}</ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>
+                    <div expand>
+                        {{ place.description }}
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        
+            <ion-item>
+                <ion-label>
+                    Note : {{ place.note }}
+                </ion-label>
+            </ion-item>
+    
+            <ion-item>
+                <ion-label>
+                    Ajouté le : {{ place.createdAt|date:"dd MMMM yyyy" }}
+                </ion-label>
+            </ion-item>
+        </div>
+
+        <ng-template #error>
+            <app-error></app-error>
+        </ng-template>
+    </div>
+
+    <ng-template #loading>
+        <app-loader></app-loader>
+    </ng-template>
+</ion-content>

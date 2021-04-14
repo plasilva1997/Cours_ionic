@@ -1,0 +1,18 @@
+<div class="error">
+    <span *ngIf="message; else default">
+        {{ message }}
+    </span>
+    <ng-template #default>
+        <span *ngIf="code; else defaultMessage">
+            {{ errors[code] }}
+        </span>
+
+        <ng-template #defaultMessage>
+            Une erreur est survenue, veuillez réeassyer plus tard.
+        </ng-template>
+    </ng-template>
+
+    <div class="action" *ngIf="retry.observers.length > 0">
+        <ion-button color="secondary" (click)="doRetry()">Réeassyer</ion-button>
+    </div>
+</div>

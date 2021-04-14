@@ -1,0 +1,12 @@
+form{
+    padding: 20px;
+
+    .form-error{
+        padding: 10px 0;
+        color: var( --ion-color-danger );
+    }
+
+    ion-button{
+        margin-top: 20px;
+    }
+}
